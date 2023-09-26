@@ -116,29 +116,24 @@ export default Chart = () => {
   ];
 
   const [change, setChange] = useState(true);
-
+  const [pie, setPie] = useState(true);
+  const [bezier, setBezier] = useState(true);
   return (
     <SafeAreaView>
       <ScrollView>
-        <Text>Bezier Line Chart</Text>
-
-        <LineChart
-          data={data}
-          width={screenWidth}
-          height={256}
-          verticalLabelRotation={30}
-          chartConfig={chartConfig}
-          bezier
-        />
         <Text> Line Chart</Text>
+        <Text style={{fontSize: 10}}>Click on graph to see bezier graph</Text>
+        <TouchableOpacity onPress={() => setBezier(!bezier)}>
+          <LineChart
+            data={data}
+            width={screenWidth}
+            height={256}
+            verticalLabelRotation={30}
+            chartConfig={chartConfig}
+            bezier={!bezier}
+          />
+        </TouchableOpacity>
 
-        <LineChart
-          data={data}
-          width={screenWidth}
-          height={220}
-          chartConfig={chartConfig}
-          verticalLabelRotation={30}
-        />
         <Text> Progress Chart</Text>
         <TouchableOpacity onPress={() => setChange(!change)}>
           <ProgressChart
@@ -156,46 +151,53 @@ export default Chart = () => {
         </TouchableOpacity>
 
         <Text> Bar Chart</Text>
-        <BarChart
-          // style={{height: 300}}
-          data={data}
-          width={screenWidth}
-          height={270}
-          yAxisLabel="$"
-          chartConfig={chartConfig}
-          verticalLabelRotation={15}
-        />
+        <TouchableOpacity>
+          <BarChart
+            // style={{height: 300}}
+            data={data}
+            width={screenWidth}
+            height={270}
+            yAxisLabel="$"
+            chartConfig={chartConfig}
+            verticalLabelRotation={15}
+          />
+        </TouchableOpacity>
         <Text> Stacked Chart</Text>
-
-        <StackedBarChart
-          // style={graphStyle}
-          data={dataStacked}
-          width={screenWidth}
-          height={220}
-          chartConfig={chartConfig}
-        />
-
-        <Text> Pie Chart</Text>
-        <PieChart
-          data={dataPie}
-          width={screenWidth}
-          height={220}
-          chartConfig={chartConfig}
-          accessor={'population'}
-          backgroundColor={'transparent'}
-          paddingLeft={'15'}
-          // center={[10, 50]}
-          // absolute
-        />
+        <TouchableOpacity>
+          <StackedBarChart
+            // style={graphStyle}
+            data={dataStacked}
+            width={screenWidth}
+            height={220}
+            chartConfig={chartConfig}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setPie(!pie)}>
+          <Text> Pie Chart</Text>
+          <PieChart
+            data={dataPie}
+            width={screenWidth}
+            height={220}
+            chartConfig={chartConfig}
+            accessor={'population'}
+            backgroundColor={pie ? 'transparent' : 'black'}
+            paddingLeft={'15'}
+            // center={[10, 50]}
+            // absolute
+            hasLegend={!pie}
+          />
+        </TouchableOpacity>
         <Text> ContributionGraph</Text>
-        <ContributionGraph
-          values={commitsData}
-          endDate={new Date('2017-04-01')}
-          numDays={105}
-          width={screenWidth}
-          height={220}
-          chartConfig={chartConfig}
-        />
+        <TouchableOpacity>
+          <ContributionGraph
+            values={commitsData}
+            endDate={new Date('2017-04-01')}
+            numDays={105}
+            width={screenWidth}
+            height={220}
+            chartConfig={chartConfig}
+          />
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
