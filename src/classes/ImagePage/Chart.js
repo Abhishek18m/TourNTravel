@@ -1,5 +1,12 @@
-import React from 'react';
-import {View, Text, Dimensions, SafeAreaView, ScrollView} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  Dimensions,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import {
   LineChart,
   BarChart,
@@ -11,20 +18,20 @@ import {
 
 export default Chart = () => {
   const chartConfig = {
-    backgroundGradientFrom: '#1E2923',
+    backgroundGradientFrom: 'blue',
     backgroundGradientFromOpacity: 0.25,
-    backgroundGradientTo: '#08130D',
-    backgroundGradientToOpacity: 0.6,
+    backgroundGradientTo: 'black',
+    backgroundGradientToOpacity: 1,
     color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
     useShadowColorFromDataset: false, // optional
   };
   const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
-        data: [20, 45, 28, 80, 99, 43],
+        data: [20, 45, 28, 80, 99, 43, 18],
         color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
         strokeWidth: 2, // optional
       },
@@ -108,53 +115,13 @@ export default Chart = () => {
     {date: '2017-02-30', count: 4},
   ];
 
+  const [change, setChange] = useState(true);
+
   return (
     <SafeAreaView>
       <ScrollView>
         <Text>Bezier Line Chart</Text>
-        {/* <LineChart
-          data={{
-            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-            datasets: [
-              {
-                data: [
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                ],
-              },
-            ],
-          }}
-          width={Dimensions.get('window').width} // from react-native
-          height={220}
-          yAxisLabel="$"
-          yAxisSuffix="k"
-          yAxisInterval={1} // optional, defaults to 1
-          chartConfig={{
-            backgroundColor: '#e26a00',
-            backgroundGradientFrom: '#fb8c00',
-            backgroundGradientTo: '#ffa726',
-            decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            style: {
-              borderRadius: 16,
-            },
-            propsForDots: {
-              r: '6',
-              strokeWidth: '2',
-              stroke: '#ffa726',
-            },
-          }}
-          bezier
-          style={{
-            marginVertical: 8,
-            borderRadius: 16,
-          }}
-        /> */}
+
         <LineChart
           data={data}
           width={screenWidth}
@@ -164,71 +131,51 @@ export default Chart = () => {
           bezier
         />
         <Text> Line Chart</Text>
+
         <LineChart
           data={data}
           width={screenWidth}
           height={220}
           chartConfig={chartConfig}
+          verticalLabelRotation={30}
         />
         <Text> Progress Chart</Text>
-        <ProgressChart
-          data={dataProgress}
-          width={screenWidth}
-          height={220}
-          strokeWidth={16}
-          radius={32}
-          chartConfig={chartConfig}
-          hideLegend={false}
-        />
+        <TouchableOpacity onPress={() => setChange(!change)}>
+          <ProgressChart
+            data={dataProgress}
+            width={screenWidth}
+            height={220}
+            strokeWidth={16}
+            radius={32}
+            chartConfig={chartConfig}
+            hideLegend={change}
+            style={
+              change ? {backgroundColor: null} : {backgroundColor: 'black'}
+            }
+          />
+        </TouchableOpacity>
+
         <Text> Bar Chart</Text>
         <BarChart
-          // style={graphStyle}
+          // style={{height: 300}}
           data={data}
           width={screenWidth}
-          height={220}
+          height={270}
           yAxisLabel="$"
           chartConfig={chartConfig}
-          verticalLabelRotation={30}
+          verticalLabelRotation={15}
         />
         <Text> Stacked Chart</Text>
 
-        {/* <StackedBarChart
+        <StackedBarChart
           // style={graphStyle}
-          data={data}
+          data={dataStacked}
           width={screenWidth}
           height={220}
           chartConfig={chartConfig}
-        /> */}
-        <StackedBarChart
-          data={{
-            labels: ['Test1', 'Test2'],
-            legend: ['L1', 'L2', 'L3'],
-            data: [
-              [60, 60, 60],
-              [30, 30, 60],
-            ],
-            barColors: ['#dfe4ea', '#ced6e0', '#a4b0be'],
-          }}
-          width={screenWidth} // from react-native
-          height={220}
-          yAxisLabel={'Rp'}
-          chartConfig={{
-            backgroundColor: 'green',
-            backgroundGradientFrom: 'green',
-            backgroundGradientTo: 'green',
-            decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `white`,
-            labelColor: (opacity = 1) => `white`,
-            style: {
-              borderRadius: 16,
-            },
-          }}
-          // style={{
-          //   marginVertical: 8,
-          //   borderRadius: 16,
-          // }}
         />
-        <Text> Stacked Chart</Text>
+
+        <Text> Pie Chart</Text>
         <PieChart
           data={dataPie}
           width={screenWidth}
