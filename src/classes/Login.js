@@ -84,7 +84,7 @@ export default function Login(props) {
             width: 100,
             alignSelf: 'center',
             tintColor: 'blue',
-            marginBottom: 50,
+            // marginBottom: 50,
           }}
         />
 
@@ -116,9 +116,9 @@ export default function Login(props) {
           style={{
             flexDirection: 'row',
             marginTop: 10,
-            justifyContent: 'space-evenly',
+            justifyContent: 'space-between',
           }}>
-          <Social Img={require('../assets/gmail.png')} />
+          <Social Img={require('../assets/google.png')} />
           <Social Img={require('../assets/apple.png')} />
           <Social Img={require('../assets/facebook.png')} />
           <Social Img={require('../assets/twitter.png')} />

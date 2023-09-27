@@ -4984,7 +4984,7 @@ lodash.toarray@^4.4.0:
   resolved "https://registry.yarnpkg.com/lodash.toarray/-/lodash.toarray-4.4.0.tgz#24c4bfcd6b2fba38bfd0594db1179d8e9b656561"
   integrity sha512-QyffEA3i5dma5q2490+SgCvDN0pXLmRGSyAANuVi0HQ01Pkfr9fuoKQW8wm1wGBnJITs/mS7wQvS6VshUEBFCw==
 
-lodash@^4.14.2, lodash@^4.17.13, lodash@^4.17.21, lodash@^4.17.4:
+lodash@^4.17.13, lodash@^4.17.21, lodash@^4.17.4:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -6253,13 +6253,6 @@ react-native-calendar-picker@^7.1.4:
     node-git-hooks "^1.0.1"
     prop-types "^15.6.0"
     recyclerlistview "^3.0.0"
-
-react-native-camera-kit@^13.0.0:
-  version "13.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-camera-kit/-/react-native-camera-kit-13.0.0.tgz#983d9146cdeb0ec0cb0c0a86b7fa5f7690df08f6"
-  integrity sha512-fnkyivCG2xzS+14/doP8pCAYNafYaTyg5J0t+JJltJdgKSHf328OG44Rd+fnbbEOydZxgy/bcuLB24R0kCbynw==
-  dependencies:
-    lodash "^4.14.2"
 
 react-native-chart-kit@^6.12.0:
   version "6.12.0"
