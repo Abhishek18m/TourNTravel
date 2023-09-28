@@ -28,23 +28,27 @@ I18n.translations = {
 
 export default function Splash(props) {
   useEffect(() => {
-    getData();
-
     setTimeout(() => {
-      props.navigation.navigate('Login');
+      getData();
     }, 2000);
   }, []);
 
   const getData = async () => {
     const language = await AsyncStorage.getItem('language');
-    {
-      language ? (I18n.locale = language) : (I18n.locale = 'en');
-    }
-    // if (language == undefined || language == null || language == '') {
-    //   I18n.locale = 'en';
-    // } else {
-    //   I18n.locale = language;
+    let status = await AsyncStorage.getItem('status');
+    // {
+    //   language ? (I18n.locale = language) : (I18n.locale = 'en');
     // }
+    if (language == undefined || language == null || language == '') {
+      I18n.locale = 'en';
+    } else {
+      I18n.locale = language;
+    }
+    if (status == 'true') {
+      props.navigation.navigate('Main');
+    } else {
+      props.navigation.navigate('Login');
+    }
   };
 
   return (

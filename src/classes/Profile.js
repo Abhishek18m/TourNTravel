@@ -63,6 +63,7 @@ export default function Profile(props) {
 
   const removeData = async () => {
     await AsyncStorage.removeItem('user_login');
+    await AsyncStorage.removeItem('status');
     setUserData('');
   };
   const [userData, setUserData] = useState({});

@@ -47,12 +47,12 @@ export default function Homepage(props) {
     {
       id: 2,
       Img: require('../assets/beach.png'),
-      Title: 'Beach',
+      Title: 'Lake',
     },
     {
       id: 3,
-      Img: require('../assets/forest.png'),
-      Title: 'Forest',
+      Img: require('../assets/cart.png'),
+      Title: 'Shopping',
     },
     {
       id: 4,
