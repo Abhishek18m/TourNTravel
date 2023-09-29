@@ -13,6 +13,17 @@ import InputComponent from '../component/InputText';
 import CommonButton from '../component/CommonButtons';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import I18n from 'react-native-i18n';
+import en from '../languages/en';
+import hi from '../languages/hi';
+import ja from '../languages/ja';
+
+I18n.fallback = true;
+I18n.translations = {
+  hi,
+  en,
+  ja,
+};
 let array = [];
 
 export default function ForgotPswrd(props) {
@@ -69,78 +80,100 @@ export default function ForgotPswrd(props) {
 
   return (
     <SafeAreaView style={CSS.LoginSafeview}>
-      <View style={[CSS.LoginView, {height: verified ? '75%' : '60%'}]}>
-        <Text style={CSS.HeaderText}>Reset Password</Text>
-        <TextInput
-          editable={verified ? false : true}
-          color={verified?'grey':null}
-          placeholder="First Name"
-          autoCorrect={false}
-          style={CSS.InputCSS}
-          onChangeText={val => setFirstName(val)}
-          // value={props.value}
-        />
-        <TextInput
-          editable={verified ? false : true}
-          color={verified?'grey':null}
-          placeholder="Last Name"
-          autoCorrect={false}
-          style={CSS.InputCSS}
-          onChangeText={val => setLastName(val)}
-          // value={props.value}
-        />
-        <TextInput
-          editable={verified ? false : true}
-          color={verified?'grey':null}
-          placeholder="Email"
-          autoCorrect={false}
-          style={CSS.InputCSS}
-          onChangeText={val => setEmail(val)}
-          // value={props.value}
-        />
-        {verified ? (
+      <View
+        style={[
+          CSS.LoginView,
+          // {height: verified ? '75%' : '50%', backgroundColor: 'red'},
+        ]}>
+        <View
+          style={{
+            justifyContent: 'space-between',
+            marginTop: 100,
+            height: verified ? 450 : 350,
+          }}>
+          <Text
+            style={{
+              alignSelf: 'center',
+              color: 'black',
+              fontSize: 28,
+              marginBottom: 10,
+              fontWeight: 'bold',
+            }}>
+            {verified ? I18n.t('reset') : I18n.t('verify')}
+          </Text>
           <TextInput
-       
-            placeholder="New Password"
+            editable={verified ? false : true}
+            color={verified ? 'grey' : null}
+            placeholderTextColor={'lightgrey'}
+            placeholder={I18n.t('fname')}
             autoCorrect={false}
             style={CSS.InputCSS}
-            onChangeText={val => setPassword(val)}
+            onChangeText={val => setFirstName(val)}
+            // value={props.value}
           />
-        ) : null}
-        {verified ? (
           <TextInput
-            placeholder="Confirm Password"
+            editable={verified ? false : true}
+            placeholderTextColor={'lightgrey'}
+            color={verified ? 'grey' : null}
+            placeholder={I18n.t('lname')}
             autoCorrect={false}
             style={CSS.InputCSS}
-            onChangeText={val => setConfirm(val)}
+            onChangeText={val => setLastName(val)}
+            // value={props.value}
           />
-        ) : null}
+          <TextInput
+            editable={verified ? false : true}
+            placeholderTextColor={'lightgrey'}
+            color={verified ? 'grey' : null}
+            placeholder={I18n.t('email')}
+            autoCorrect={false}
+            style={CSS.InputCSS}
+            onChangeText={val => setEmail(val)}
+            // value={props.value}
+          />
+          {verified ? (
+            <TextInput
+              placeholder={I18n.t('npswrd')}
+              autoCorrect={false}
+              style={CSS.InputCSS}
+              onChangeText={val => setPassword(val)}
+            />
+          ) : null}
+          {verified ? (
+            <TextInput
+              placeholder={I18n.t('cpswrd')}
+              autoCorrect={false}
+              style={CSS.InputCSS}
+              onChangeText={val => setConfirm(val)}
+            />
+          ) : null}
 
-        {/* <InputComponent title="First Name" test={val => console.log(val)} />
+          {/* <InputComponent title="First Name" test={val => console.log(val)} />
         <InputComponent title="Last Name" />
         <InputComponent title="Email Adress" /> */}
 
-        {verified ? (
-          <TouchableOpacity onPress={() => updatePassword()}>
-            <View style={CSS.CommonButton}>
-              <Text style={CSS.CommonButtonTxt}>Update</Text>
-            </View>
-          </TouchableOpacity>
-        ) : (
-          <CommonButton
-            ButtonText="Next"
-            bg={'blue'}
-            txt={'white'}
-            onClick={() => validation()}
-          />
-        )}
+          {verified ? (
+            <TouchableOpacity onPress={() => updatePassword()}>
+              <View style={CSS.CommonButton}>
+                <Text style={CSS.CommonButtonTxt}>{I18n.t('update')}</Text>
+              </View>
+            </TouchableOpacity>
+          ) : (
+            <CommonButton
+              ButtonText={I18n.t('nxt')}
+              bg={'blue'}
+              txt={'white'}
+              onClick={() => validation()}
+            />
+          )}
 
-        <CommonButton
-          ButtonText="Cancel"
-          bg={'white'}
-          txt={'black'}
-          onClick={() => props.navigation.goBack(null)}
-        />
+          <CommonButton
+            ButtonText={I18n.t('cncl')}
+            bg={'white'}
+            txt={'black'}
+            onClick={() => props.navigation.goBack(null)}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );

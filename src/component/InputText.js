@@ -6,6 +6,7 @@ export default function InputComponent(props) {
   return (
     <TextInput
       placeholder={props.title}
+      placeholderTextColor={'grey'}
       autoCorrect={false}
       style={[CSS.InputCSS, {width: props.ww}]}
       onChangeText={props.myData}

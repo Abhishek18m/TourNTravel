@@ -50,7 +50,7 @@ export default function Profile(props) {
       props.navigation.navigate('VerifyAccount');
     } else if (val == 'Notifications') {
       props.navigation.navigate('Notifications');
-    } else if (val == 'Email Address') {
+    } else if (val == 'Calender') {
       props.navigation.navigate('Practice');
     } else if (val == 'Language') {
       props.navigation.navigate('Language');
@@ -71,11 +71,11 @@ export default function Profile(props) {
   const refRBSheet1 = useRef();
   const refRBSheet2 = useRef();
   const ProfileTiles = [
-    {
-      id: 1,
-      title: 'Email Address',
-      MenuIcon: require('../assets/email.png'),
-    },
+    // {
+    //   id: 1,
+    //   title: 'Calender',
+    //   MenuIcon: require('../assets/email.png'),
+    // },
     {
       id: 2,
       title: 'Phone Number',
@@ -91,11 +91,11 @@ export default function Profile(props) {
       title: 'Language',
       MenuIcon: require('../assets/notification.png'),
     },
-    {
-      id: 5,
-      title: 'Chart',
-      MenuIcon: require('../assets/help.png'),
-    },
+    // {
+    //   id: 5,
+    //   title: 'Chart',
+    //   MenuIcon: require('../assets/help.png'),
+    // },
     {
       id: 6,
       title: 'Help & Support',

@@ -12,39 +12,38 @@ import NotificationList from '../component/notificationsTab';
 
 export default function Notification(props) {
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  // const Nlists = [
-  //   {
-  //     date: 'August 2023',
-  //   },
-  //   {
-  //     date: 'August 2023',
-  //   },
-  //   {
-  //     date: 'August 2023',
-  //   },
-  //   {
-  //     date: 'August 2023',
-  //   },
-  //   {
-  //     date: 'August 2023',
-  //   },
-
-  // ];
-
-  const List = [
+  const Nlists = [
     {
-      number: 1,
+      date: 'August 2023',
     },
     {
-      number: 2,
+      date: 'August 2023',
     },
     {
-      number: 3,
+      date: 'August 2023',
     },
     {
-      number: 4,
+      date: 'August 2023',
+    },
+    {
+      date: 'August 2023',
     },
   ];
+
+  // const List = [
+  //   {
+  //     number: 1,
+  //   },
+  //   {
+  //     number: 2,
+  //   },
+  //   {
+  //     number: 3,
+  //   },
+  //   {
+  //     number: 4,
+  //   },
+  // ];
   const [id, setId] = useState(null);
   const gg = () => {
     console.log(id);
@@ -63,15 +62,15 @@ export default function Notification(props) {
           Notifications
         </Text>
       </View>
-      {/* <FlatList
+      <FlatList
         showsVerticalScrollIndicator={false}
         style={{marginTop: 20}}
         data={Nlists}
         renderItem={({item, index}) => {
           return <NotificationList date={item.date} />;
         }}
-      /> */}
-      <FlatList
+      />
+      {/* <FlatList
         data={List}
         renderItem={({item, index}) => {
           return (
@@ -91,7 +90,7 @@ export default function Notification(props) {
             </TouchableOpacity>
           );
         }}
-      />
+      /> */}
     </SafeAreaView>
   );
 }

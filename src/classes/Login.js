@@ -32,6 +32,22 @@ let array = [];
 export default function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [a, setA] = useState('');
+
+  useEffect(() => {
+    lang();
+  }, []);
+
+  const lang = async () => {
+    let data = await AsyncStorage.getItem('language');
+    if (data == 'en') {
+      setA('English');
+    } else if (data == 'hi') {
+      setA('Hindi');
+    } else {
+      setA('Japanese');
+    }
+  };
 
   const mSignIn = () => {
     if (email === '') {
@@ -44,6 +60,7 @@ export default function Login(props) {
   };
   const getData = async () => {
     let users = await AsyncStorage.getItem('users');
+
     let parsedata = JSON.parse(users);
     array = [...parsedata];
 
@@ -75,10 +92,7 @@ export default function Login(props) {
   return (
     <SafeAreaView style={CSS.LoginSafeview}>
       <View style={CSS.LoginView}>
-        <Text style={{alignSelf: 'center', fontSize: 30, fontWeight: 'bold'}}>
-          {I18n.t('greetings')}
-        </Text>
-        <Image
+        {/* <Image
           source={require('../assets/departures.png')}
           style={{
             height: 100,
@@ -87,54 +101,84 @@ export default function Login(props) {
             tintColor: 'blue',
             // marginBottom: 50,
           }}
-        />
+        /> */}
 
-        <Text style={CSS.HeaderText}> {I18n.t('login')}</Text>
-
-        <InputComponent title={I18n.t('email')} myData={val => setEmail(val)} />
-
-        <InputComponent
-          title={I18n.t('password')}
-          myData={val => setPassword(val)}
-        />
-
+        {/* <Text style={CSS.HeaderText}> {I18n.t('login')}</Text> */}
         <TouchableOpacity
-          onPress={() => props.navigation.navigate('ForgotPswrd')}>
-          <Text style={{alignSelf: 'flex-end', color: 'blue'}}>
-            {I18n.t('forgot')}
-          </Text>
+          onPress={() => props.navigation.navigate('Language')}
+          style={{alignSelf: 'center', flexDirection: 'row', marginTop: 10}}>
+          <Text style={{color: 'grey'}}>{a}</Text>
+          <Image
+            source={require('../assets/down.png')}
+            style={{height: 20, width: 20}}
+          />
         </TouchableOpacity>
+        <View
+          style={{
+            height: 350,
+            // backgroundColor: 'green',
+            justifyContent: 'space-between',
+          }}>
+          <Text
+            style={{
+              alignSelf: 'center',
+              fontSize: 30,
+              fontWeight: 'bold',
+              color: 'black',
+            }}>
+            {I18n.t('greetings')}
+          </Text>
+          <InputComponent
+            title={I18n.t('email')}
+            myData={val => setEmail(val)}
+          />
 
-        <CommonButton
-          ButtonText={I18n.t('signin')}
-          bg={Design.primaryColor}
-          txt={'white'}
-          onClick={() => mSignIn()}
-        />
+          <InputComponent
+            title={I18n.t('password')}
+            myData={val => setPassword(val)}
+          />
 
-        <Text style={{alignSelf: 'center'}}>{I18n.t('orSignInWith')}</Text>
+          <CommonButton
+            ButtonText={I18n.t('signin')}
+            bg={Design.primaryColor}
+            txt={'white'}
+            onClick={() => mSignIn()}
+          />
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('ForgotPswrd')}>
+            <Text style={{alignSelf: 'flex-end', color: 'blue'}}>
+              {I18n.t('forgot')}
+            </Text>
+          </TouchableOpacity>
+          <Text style={{alignSelf: 'center', color: 'black'}}>
+            {I18n.t('orSignInWith')}
+          </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              // marginTop: 10,
+              justifyContent: 'space-between',
+            }}>
+            <Social Img={require('../assets/google.png')} />
+            <Social Img={require('../assets/apple.png')} />
+            <Social Img={require('../assets/facebook.png')} />
+            <Social Img={require('../assets/twitter.png')} />
+          </View>
+        </View>
+
         <View
           style={{
             flexDirection: 'row',
-            marginTop: 10,
-            justifyContent: 'space-between',
+            alignSelf: 'center',
+            marginBottom: '3%',
           }}>
-          <Social Img={require('../assets/google.png')} />
-          <Social Img={require('../assets/apple.png')} />
-          <Social Img={require('../assets/facebook.png')} />
-          <Social Img={require('../assets/twitter.png')} />
-        </View>
-        <View style={{flexDirection: 'row', alignSelf: 'center'}}>
-          <Text>{I18n.t('dontHaveAccount')}</Text>
+          <Text style={{color: 'black'}}>{I18n.t('dontHaveAccount')}</Text>
           <TouchableOpacity onPress={() => props.navigation.navigate('SignUp')}>
-            <Text style={{color: 'blue'}}>{I18n.t('signup')}</Text>
+            <Text style={{color: 'blue', marginLeft: '5%'}}>
+              {I18n.t('signup')}
+            </Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('Language')}
-          style={{alignSelf: 'center'}}>
-          <Text style={{color: 'blue'}}>change language?</Text>
-        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

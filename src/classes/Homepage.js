@@ -56,8 +56,8 @@ export default function Homepage(props) {
     },
     {
       id: 4,
-      Img: require('../assets/mountain.png'),
-      Title: 'Mountain',
+      Img: require('../assets/museum.png'),
+      Title: 'Museum',
     },
     {
       id: 5,
@@ -226,31 +226,37 @@ export default function Homepage(props) {
           />
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View>
-            <Text style={CSS.HomeText1}>Recomended for You : </Text>
-            <SliderBox
-              style={{
-                height: 200,
-                marginHorizontal: 10,
-                width: Dimensions.get('screen').width * 0.95,
-              }}
-              images={Recomended}
-              dotColor={'blue'}
-              circleLoop
-            />
-          </View>
+          {categories == 0 ? (
+            <>
+              <View>
+                <Text style={CSS.HomeText1}>Recomended for You : </Text>
+                <SliderBox
+                  style={{
+                    height: 200,
+                    marginHorizontal: 10,
+                    width: Dimensions.get('screen').width * 0.95,
+                  }}
+                  images={Recomended}
+                  dotColor={'blue'}
+                  circleLoop
+                  autoplay
+                />
+              </View>
 
-          <View style={{borderRadius: 15}}>
-            <Text style={CSS.HomeText1}>Popular Places : </Text>
-            <FlatList
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={item => item.id}
-              data={PopularPlaces}
-              renderItem={_renderItem_PopularPlaces}
-            />
-          </View>
-          <Text style={CSS.HomeText1}>Places to Visit : </Text>
+              <View style={{borderRadius: 15}}>
+                <Text style={CSS.HomeText1}>Popular Places : </Text>
+                <FlatList
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                  keyExtractor={item => item.id}
+                  data={PopularPlaces}
+                  renderItem={_renderItem_PopularPlaces}
+                />
+              </View>
+            </>
+          ) : null}
+
+          <Text style={CSS.HomeText1}>Places : </Text>
           <FlatList
             // inverted={-1}
             showsVerticalScrollIndicator={false}

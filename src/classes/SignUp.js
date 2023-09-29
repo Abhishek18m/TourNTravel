@@ -16,6 +16,18 @@ import Toast from 'react-native-simple-toast';
 import Snackbar from 'react-native-snackbar';
 import PhoneInput from 'react-native-phone-number-input';
 
+import I18n from 'react-native-i18n';
+import en from '../languages/en';
+import hi from '../languages/hi';
+import ja from '../languages/ja';
+
+I18n.fallback = true;
+I18n.translations = {
+  hi,
+  en,
+  ja,
+};
+
 // Toast.show('This is a short toast');
 
 // Toast.show('This is a long toast.', Toast.LONG);
@@ -109,27 +121,36 @@ export default function SignUp(props) {
 
   return (
     <SafeAreaView style={CSS.LoginSafeview}>
-      <View style={[CSS.LoginView, {height: 500}]}>
-        <Text style={CSS.HeaderText}>SIGN UP</Text>
+      <View
+        style={{
+          height: 450,
+          justifyContent: 'space-between',
+          paddingHorizontal: 30,
+          // backgroundColor: 'red',
+        }}>
+        <Text style={CSS.HeaderText}>{I18n.t('signup')}</Text>
 
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <InputComponent
-            title="First Name"
-            ww={Dimensions.get('screen').width * 0.33}
-            myData={val => setFirstName(val)}
-            value={firstName}
-          />
-
-          <InputComponent
-            title="Last Name"
-            ww={Dimensions.get('screen').width * 0.33}
-            myData={val => setLastName(val)}
-            value={lastName}
-          />
+          <View style={{flex: 0.48}}>
+            <InputComponent
+              title={I18n.t('fname')}
+              // ww={Dimensions.get('screen').width * 0.33}
+              myData={val => setFirstName(val)}
+              value={firstName}
+            />
+          </View>
+          <View style={{flex: 0.48}}>
+            <InputComponent
+              title={I18n.t('lname')}
+              // ww={Dimensions.get('screen').width * 0.33}
+              myData={val => setLastName(val)}
+              value={lastName}
+            />
+          </View>
         </View>
 
         <InputComponent
-          title="Email Adress"
+          title={I18n.t('email')}
           myData={val => setEmail(val)}
           value={email}
         />
@@ -142,14 +163,14 @@ export default function SignUp(props) {
           textContainerStyle={{backgroundColor: 'white', borderRadius: 8}}
           textInputStyle={{fontSize: 14}}
           containerStyle={{
-            width: Dimensions.get('screen').width * 0.715,
+            width: Dimensions.get('screen').width * 0.85,
             height: 50,
-            marginBottom: 10,
-            marginTop: 5,
+            // marginBottom: 10,
+            // marginTop: 5,
             // paddingLeft: 10,
             backgroundColor: 'white',
             borderRadius: 8,
-
+            elevation: 3,
             shadowColor: 'black',
             shadowOpacity: 0.1,
             shadowRadius: 1,
@@ -157,26 +178,26 @@ export default function SignUp(props) {
           }}
         />
         <InputComponent
-          title="Password"
+          title={I18n.t('password')}
           myData={val => setPassword(val)}
           value={password}
         />
         <InputComponent
-          title="Confirm Password"
+          title={I18n.t('cpswrd')}
           myData={val => setConfirm(val)}
           value={confirm}
         />
 
         <CommonButton
-          ButtonText="Sign Up"
+          ButtonText={I18n.t('signup')}
           bg={'blue'}
           txt={'white'}
           onClick={() => SignUp()}
         />
         <View style={{flexDirection: 'row', alignSelf: 'center'}}>
-          <Text>Already have an account ?</Text>
+          <Text>{I18n.t('account')}</Text>
           <TouchableOpacity onPress={() => props.navigation.navigate('Login')}>
-            <Text style={{color: 'blue'}}>SignIn</Text>
+            <Text style={{color: 'blue'}}>{I18n.t('signin')}</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -9,6 +9,7 @@ export default function Social(props) {
         shadowOffset: {width: 1, height: 3},
         shadowRadius: 1,
         shadowOpacity: 0.5,
+        elevation: 3,
 
         backgroundColor: 'white',
         paddingHorizontal: '5%',

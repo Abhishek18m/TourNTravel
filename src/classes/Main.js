@@ -7,25 +7,36 @@ import Search from './Search';
 import MyLikes from './MyLikes';
 import Profile from './Profile';
 
+import I18n from 'react-native-i18n';
+import en from '../languages/en';
+import hi from '../languages/hi';
+import ja from '../languages/ja';
+
+I18n.fallback = true;
+I18n.translations = {
+  hi,
+  en,
+  ja,
+};
+
 export default function Main(props) {
-  
   const [displayIndex, setDisplayIndex] = useState(0);
   const pages = [
     {
-      title: 'Home',
+      title: I18n.t('home'),
       Image: require('../assets/home.png'),
       // path:props.navigation.navigate('HomePage')
     },
     {
-      title: 'Search',
+      title: I18n.t('search'),
       Image: require('../assets/search.png'),
     },
     {
-      title: 'Likes',
+      title: I18n.t('likes'),
       Image: require('../assets/heart.png'),
     },
     {
-      title: 'Profile',
+      title: I18n.t('profile'),
       Image: require('../assets/user.png'),
     },
   ];
@@ -62,7 +73,6 @@ export default function Main(props) {
             <BottomTab
               title={item.title}
               Image={item.Image}
-              
               index={index}
               displayIndex={displayIndex}
               tabClick={val => {

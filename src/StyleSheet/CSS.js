@@ -32,6 +32,7 @@ export default StyleSheet.create({
     color: 'white',
     fontSize: 40,
     fontWeight: '900',
+    elevation: 3,
     shadowColor: 'black',
     shadowOffset: {width: 2, height: 2},
     shadowRadius: 2,
@@ -46,7 +47,7 @@ export default StyleSheet.create({
     color: 'white',
     fontSize: 25,
     fontWeight: '900',
-
+    elevation: 3,
     shadowColor: 'black',
     shadowOffset: {width: 2, height: 2},
     shadowRadius: 2,
@@ -56,6 +57,7 @@ export default StyleSheet.create({
     color: 'white',
     fontSize: 15,
     fontWeight: '300',
+    elevation: 3,
     shadowColor: 'black',
     shadowOffset: {width: 2, height: 2},
     shadowRadius: 2,
@@ -69,13 +71,16 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   LoginView: {
-    height: '95%',
-    width: '85%',
+    // height: 500,
+    width: '100%',
     alignSelf: 'center',
-    borderRadius: 50,
+    justifyContent: 'space-between',
     paddingHorizontal: 30,
-    paddingVertical: 40,
-    justifyContent: 'space-evenly',
+    flex: 1,
+    // paddingVertical: 40,
+
+    // justifyContent: 'space-evenly',
+    // backgroundColor: 'red',
   },
   SocialView: {
     backgroundColor: 'skyblue',
@@ -85,6 +90,7 @@ export default StyleSheet.create({
     borderRadius: 25,
     paddingHorizontal: 30,
     opacity: 0.9,
+    elevation: 3,
     shadowColor: 'black',
     shadowOffset: {width: 10, height: 10},
     shadowRadius: 5,
@@ -98,17 +104,19 @@ export default StyleSheet.create({
   },
   InputCSS: {
     height: 50,
-    marginBottom: 10,
-    marginTop: 5,
+    // marginBottom: 10,
+    // marginTop: 5,
     paddingLeft: 10,
     backgroundColor: 'white',
     borderRadius: 8,
+
+    elevation: 3,
     shadowColor: 'black',
     shadowOpacity: 0.1,
     shadowRadius: 1,
     shadowOffset: {width: 1, height: 2},
   },
-  SearchButton:{
+  SearchButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -129,9 +137,9 @@ export default StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 10,
-    backgroundColor:'blue',
-
+    // margin: 10,
+    backgroundColor: 'blue',
+    elevation: 3,
     shadowColor: 'black',
     shadowOffset: {width: 1, height: 2},
     shadowRadius: 1,
@@ -140,7 +148,7 @@ export default StyleSheet.create({
   CommonButtonTxt: {
     fontSize: 20,
     fontWeight: 'bold',
-    color:'white'
+    color: 'white',
   },
   OtpView: {
     borderWidth: 0.5,
@@ -158,10 +166,9 @@ export default StyleSheet.create({
     marginHorizontal: 10,
     fontWeight: '500',
     marginVertical: 10,
-    },
+  },
   CategoriesView: {
     alignItems: 'center',
-   
   },
   ImgView: {
     height: 50,
@@ -170,7 +177,7 @@ export default StyleSheet.create({
     borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    
+    elevation: 3,
     shadowColor: 'black',
     shadowOffset: {width: 1, height: 2},
     shadowRadius: 1,
