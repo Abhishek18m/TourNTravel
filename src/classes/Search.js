@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   Image,
@@ -15,47 +15,56 @@ import CSS from '../StyleSheet/CSS';
 // import SearchBar from '../component/TopSearchBar';
 import MySearch from '../component/MySearch';
 import Design from '../StyleSheet/Design';
-let array =[];
+
+import I18n from 'react-native-i18n';
+import en from '../languages/en';
+import hi from '../languages/hi';
+import ja from '../languages/ja';
+
+I18n.fallback = true;
+I18n.translations = {
+  hi,
+  en,
+  ja,
+};
+
+let array = [];
 export default function Search(props) {
- 
+  const [myInput, setMyInput] = useState('');
+  //   const [data,setData]=useState('')
 
-  const [myInput, setMyInput]=useState('')
-//   const [data,setData]=useState('')
- 
+  //   const searchItems = () => {
+  //   if (myInput==''){
+  //     Alert.alert('empty')
+  //   }else(console.log(myInput), showFilter())
+  // }
+  // const showFilter=()=>{
+  //   let result = RecentSearches.filter((item)=>item.PlacesTxt1==myInput)
+  //   return console.log(result);
+  // }
+  const value = () => {
+    setFilterData(RecentSearches);
+  };
+  useEffect(() => {
+    value();
+  }, []);
+  const [filterData, setFilterData] = useState([]);
 
-//   const searchItems = () => {
-//   if (myInput==''){
-//     Alert.alert('empty')
-//   }else(console.log(myInput), showFilter())
-// }
-// const showFilter=()=>{
-//   let result = RecentSearches.filter((item)=>item.PlacesTxt1==myInput)
-//   return console.log(result);
-// }
-const value =()=>{
-  setFilterData(RecentSearches)
-}
-useEffect(()=>{
-  value()
-},[])
-const [filterData, setFilterData]=useState([]);
+  const [search, setsearch] = useState('');
 
-const [search, setsearch] = useState('');
+  const searchFilter = text => {
+    if (text) {
+      const newData = RecentSearches.filter(item => {
+        return item.PlacesTxt1.toUpperCase().indexOf(text.toUpperCase()) > -1;
+      });
 
-const searchFilter=(text)=>{
-
-if (text){
-  const newData = RecentSearches.filter((item)=>{
-    return item.PlacesTxt1.toUpperCase().indexOf(text.toUpperCase())>-1;
-  });
-
-  setFilterData(newData);
-  setsearch(text);
-}else {
-  setFilterData(RecentSearches);
-  setsearch(text);
-}
-}
+      setFilterData(newData);
+      setsearch(text);
+    } else {
+      setFilterData(RecentSearches);
+      setsearch(text);
+    }
+  };
   // const RecentSearches = [
   //   {
   //     id: 1,
@@ -116,82 +125,76 @@ if (text){
   //     PlacesTxt2: 'Spain',
   //   },
   // ];
-  
+
   const RecentSearches = [
     {
       id: 1,
       PlacesImg: require('../assets/mountains.jpg'),
-      PlacesTxt1: 'MOUNT EVEREST',
-      PlacesTxt2: 'China',
+      PlacesTxt1: I18n.t('mount'),
+      PlacesTxt2: I18n.t('china'),
     },
     {
       id: 2,
       PlacesImg: require('../assets/SukhnaLake.png'),
-      PlacesTxt1: 'SUKHNA LAKE',
-      PlacesTxt2: 'Chandigarh, India',
+      PlacesTxt1: I18n.t('SuLake'),
+      PlacesTxt2: I18n.t('chd'),
     },
     {
       id: 3,
       PlacesImg: require('../assets/Tokyo.jpeg'),
-      PlacesTxt1: 'TOKYO',
-      PlacesTxt2: 'Tokyo, Japan',
+      PlacesTxt1: I18n.t('tokyo'),
+      PlacesTxt2: I18n.t('japan'),
     },
     {
       id: 4,
-      PlacesImg: require('../assets/mountains.jpg'),
-      PlacesTxt1: 'ROCK GARDEN',
-      PlacesTxt2: 'China',
+      PlacesImg: require('../assets/RockGarden.webp'),
+      PlacesTxt1: I18n.t('rock'),
+      PlacesTxt2: I18n.t('chd'),
     },
     {
       id: 5,
       PlacesImg: require('../assets/SukhnaLake.png'),
-      PlacesTxt1: 'ELANTE',
-      PlacesTxt2: 'Chandigarh, India',
+      PlacesTxt1: I18n.t('elante'),
+      PlacesTxt2: I18n.t('chd'),
     },
     {
       id: 6,
-      PlacesImg: require('../assets/Tokyo.jpeg'),
-      PlacesTxt1: 'ROSE GARDEN',
-      PlacesTxt2: 'Tokyo, Japan',
+      PlacesImg: require('../assets/RoseGarden.webp'),
+      PlacesTxt1: I18n.t('rose'),
+      PlacesTxt2: I18n.t('chd'),
     },
     {
       id: 7,
       PlacesImg: require('../assets/Paris.jpeg'),
-      PlacesTxt1: 'EIFFEL TOWER',
-      PlacesTxt2: 'Paris',
+      PlacesTxt1: I18n.t('eifel'),
+      PlacesTxt2: I18n.t('paris'),
     },
     {
       id: 8,
       PlacesImg: require('../assets/NewYork.jpeg'),
-      PlacesTxt1: 'THE EMPIRE STATE BUILDING',
-      PlacesTxt2: 'New York',
+      PlacesTxt1: I18n.t('empire'),
+      PlacesTxt2: I18n.t('york'),
     },
     {
       id: 9,
       PlacesImg: require('../assets/tajmahal.jpg'),
-      PlacesTxt1: 'TAJ MAHAL',
-      PlacesTxt2: 'Agra, India',
+      PlacesTxt1: I18n.t('taj'),
+      PlacesTxt2: I18n.t('agra'),
     },
     {
       id: 10,
       PlacesImg: require('../assets/USA.jpeg'),
-      PlacesTxt1: 'STATUE OF LIBERTY',
-      PlacesTxt2: 'New York,USA',
+      PlacesTxt1: I18n.t('liberty'),
+      PlacesTxt2: I18n.t('york'),
     },
     {
       id: 11,
-      PlacesImg: require('../assets/Tokyo.jpeg'),
-      PlacesTxt1: 'JAPAN',
-      PlacesTxt2: 'Tokyo, Japan',
-    },
-    {
-      id: 12,
       PlacesImg: require('../assets/Spain.jpeg'),
-      PlacesTxt1: 'LA SAGRADA FAMILIA' ,
-      PlacesTxt2: 'Spain',
+      PlacesTxt1: I18n.t('sagrada'),
+      PlacesTxt2: I18n.t('spain'),
     },
-  ]; 
-  
+  ];
+
   const _renderItem = ({item}) => {
     return (
       <MySearch
@@ -206,27 +209,25 @@ if (text){
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Design.primaryColor}}>
       <View style={{flex: 1, backgroundColor: Design.primaryColor}}>
-
         <View style={CSS.SearchButton}>
           <TextInput
-            placeholder="Chandigarh, India"
-            style={CSS.InputText} 
-            onChangeText={text=>searchFilter(text)}
+            placeholder={I18n.t('chd')}
+            style={CSS.InputText}
+            onChangeText={text => searchFilter(text)}
             value={search}
-            />
-            
+          />
 
           <TouchableOpacity onPress={() => searchFilter()}>
             {/* <Image
               source={require('../assets/search.png')}
               style={{height: 30, width: 30, margin: 5}}
             /> */}
-            <Text>Clear</Text>
+            <Text>{I18n.t('clear')}</Text>
           </TouchableOpacity>
         </View>
 
         <ScrollView style={{backgroundColor: Design.secondaryColor}}>
-          <Text style={CSS.HomeText1}>Recent Searches</Text>
+          <Text style={CSS.HomeText1}>{I18n.t('recent')}</Text>
           <FlatList data={filterData} renderItem={_renderItem} />
 
           {/* <Text style={CSS.HomeText1}>Popular Cities</Text>

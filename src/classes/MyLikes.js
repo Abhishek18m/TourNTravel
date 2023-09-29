@@ -5,7 +5,20 @@ import Design from '../StyleSheet/Design';
 import CSS from '../StyleSheet/CSS';
 import LikedImg from '../component/LikedImg';
 import AsyncStorage from '@react-native-community/async-storage';
-let array=[]
+
+import I18n from 'react-native-i18n';
+import en from '../languages/en';
+import hi from '../languages/hi';
+import ja from '../languages/ja';
+
+I18n.fallback = true;
+I18n.translations = {
+  hi,
+  en,
+  ja,
+};
+
+let array = [];
 export default function MyLikes(props) {
   const [myLikes, setMyLikes] = useState([]);
   useEffect(() => {
@@ -17,10 +30,9 @@ export default function MyLikes(props) {
     let parsedata = JSON.parse(users);
     array = [...parsedata];
     // setMyLikes(array)
-   setMyLikes(array)
+    setMyLikes(array);
   };
-  
-  
+
   const _renderItem_Liked = ({item, index}) => {
     return (
       <LikedImg
@@ -41,7 +53,7 @@ export default function MyLikes(props) {
           backgroundColor: Design.primaryColor,
         }}>
         <Text style={{fontSize: 25, backgroundColor: Design.primaryColor}}>
-          Likes
+          {I18n.t('likes')}
         </Text>
       </View>
 
@@ -50,7 +62,7 @@ export default function MyLikes(props) {
           flex: 1,
           backgroundColor: Design.secondaryColor,
         }}>
-        <Text style={CSS.HomeText1}>Your Liked Images</Text>
+        <Text style={CSS.HomeText1}>{I18n.t('yourlikes')}</Text>
         <View style={{marginHorizontal: 10}}>
           <FlatList
             horizontal={false}

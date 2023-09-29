@@ -19,6 +19,18 @@ import Design from '../StyleSheet/Design';
 import ToVistImg from '../component/ToVistImg';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import I18n from 'react-native-i18n';
+import en from '../languages/en';
+import hi from '../languages/hi';
+import ja from '../languages/ja';
+
+I18n.fallback = true;
+I18n.translations = {
+  hi,
+  en,
+  ja,
+};
+
 let array = [];
 export default function Homepage(props) {
   function handleBackButtonClick() {
@@ -27,6 +39,7 @@ export default function Homepage(props) {
   }
 
   useEffect(() => {
+    getData();
     BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
     return () => {
       BackHandler.removeEventListener(
@@ -35,44 +48,52 @@ export default function Homepage(props) {
       );
     };
   }, []);
+  const getData = async () => {
+    let likeStatus = await AsyncStorage.getItem('likeStatus');
+    let parsedata = JSON.parse(likeStatus);
+    setPopularPlaces(parsedata);
+    likedButton();
+    // console.log(likeStatus);
+  };
 
   const [categories, setCategories] = useState(0);
+  const [btn, setBtn] = useState(false);
 
   const HomeCategories = [
     {
       id: 1,
       Img: require('../assets/categories.png'),
-      Title: 'All',
+      Title: I18n.t('all'),
     },
     {
       id: 2,
       Img: require('../assets/beach.png'),
-      Title: 'Lake',
+      Title: I18n.t('lake'),
     },
     {
       id: 3,
       Img: require('../assets/cart.png'),
-      Title: 'Shopping',
+      Title: I18n.t('shopping'),
     },
     {
       id: 4,
       Img: require('../assets/museum.png'),
-      Title: 'Museum',
+      Title: I18n.t('museum'),
     },
     {
       id: 5,
       Img: require('../assets/boating.png'),
-      Title: 'Boating',
+      Title: I18n.t('boating'),
     },
     {
       id: 6,
       Img: require('../assets/restaurant.png'),
-      Title: 'Cafe',
+      Title: I18n.t('cafe'),
     },
     {
       id: 7,
       Img: require('../assets/swimming.png'),
-      Title: 'Swim',
+      Title: I18n.t('swim'),
     },
   ];
   const Recomended = [
@@ -81,66 +102,82 @@ export default function Homepage(props) {
     require('../assets/RoseGarden.webp'),
     require('../assets/Elante.jpeg'),
   ];
-  const PopularPlaces = [
+  const [PopularPlaces, setPopularPlaces] = useState([
     {
       id: 1,
       PlacesImg: require('../assets/SukhnaLake.png'),
-      PlacesTxt1: 'Sukhna Lake',
-      PlacesTxt2: 'Chandigarh, India',
+      PlacesTxt1: I18n.t('SuLake'),
+      PlacesTxt2: I18n.t('chd'),
+      status: 'false',
     },
     {
       id: 2,
       PlacesImg: require('../assets/Elante.jpeg'),
-      PlacesTxt1: 'Elante',
-      PlacesTxt2: 'Chandigarh, India',
+      PlacesTxt1: I18n.t('elante'),
+      PlacesTxt2: I18n.t('chd'),
+      status: 'false',
     },
     {
       id: 3,
       PlacesImg: require('../assets/RockGarden.webp'),
-      PlacesTxt1: 'Rock Garden',
-      PlacesTxt2: 'Chandigarh, India',
+      PlacesTxt1: I18n.t('rock'),
+      PlacesTxt2: I18n.t('chd'),
+      status: 'false',
     },
-  ];
+  ]);
   const PlacesToVist = [
     {
       id: 1,
 
       PlacesImg: require('../assets/SukhnaLake.png'),
-      PlacesTxt1: 'Sukhna Lake',
-      PlacesTxt2: 'Chandigarh, India',
+      PlacesTxt1: I18n.t('SuLake'),
+      PlacesTxt2: I18n.t('chd'),
     },
     {
       id: 2,
       PlacesImg: require('../assets/Elante.jpeg'),
-      PlacesTxt1: 'Elante',
-      PlacesTxt2: 'Chandigarh, India',
+      PlacesTxt1: I18n.t('elante'),
+      PlacesTxt2: I18n.t('chd'),
     },
     {
       id: 3,
       PlacesImg: require('../assets/RockGarden.webp'),
-      PlacesTxt1: 'Rock Garden',
-      PlacesTxt2: 'Chandigarh, India',
+      PlacesTxt1: I18n.t('rock'),
+      PlacesTxt2: I18n.t('chd'),
     },
     {
       id: 4,
       PlacesImg: require('../assets/RoseGarden.webp'),
-      PlacesTxt1: 'Rose Garden',
-      PlacesTxt2: 'Chandigarh, India',
+      PlacesTxt1: I18n.t('rose'),
+      PlacesTxt2: I18n.t('chd'),
     },
     {
       id: 5,
       PlacesImg: require('../assets/mansadevi.jpg'),
-      PlacesTxt1: 'Mata Mansa Devi',
-      PlacesTxt2: 'Chandigarh, India',
+      PlacesTxt1: I18n.t('mansa'),
+      PlacesTxt2: I18n.t('chd'),
     },
     {
       id: 6,
       PlacesImg: require('../assets/museum.jpg'),
-      PlacesTxt1: 'Museum',
-      PlacesTxt2: 'Chandigarh, India',
+      PlacesTxt1: I18n.t('museum'),
+      PlacesTxt2: I18n.t('chd'),
     },
   ];
-
+  let arr = [...PopularPlaces];
+  const newArray = i => {
+    if (arr[i].status == true) {
+      arr[i].status = false;
+      // setPopularPlaces(arr);
+      AsyncStorage.setItem('likeStatus', JSON.stringify(arr));
+      getData();
+    } else {
+      arr[i].status = true;
+      // setPopularPlaces(arr);
+      AsyncStorage.setItem('likeStatus', JSON.stringify(arr));
+      getData();
+    }
+  };
   const _renderItem_Category = ({item, index}) => {
     return (
       <Categories
@@ -157,31 +194,50 @@ export default function Homepage(props) {
   const _renderItem_PopularPlaces = ({item, index}) => {
     return (
       <PopularImages
+        status={item.status}
+        index={index}
         PlacesImg={item.PlacesImg}
         PlacesTxt1={item.PlacesTxt1}
         PlacesTxt2={item.PlacesTxt2}
         navigation={props.navigation}
-        likedButton={text => likedButton(text)}
+        button={index => newArray(index)}
+        // likedButton={text => likedButton(text)}
+        liked={
+          item.status == true
+            ? require('../assets/heart.png')
+            : require('../assets/unlike.png')
+        }
       />
     );
   };
-  const likedButton = async text => {
-    if (text) {
-      const newData = PopularPlaces.filter(item => {
-        return item.PlacesTxt1.toUpperCase().indexOf(text.toUpperCase()) > -1;
-      });
-      if (array.some(el => el.PlacesTxt1 === text) === true) {
-        Alert.alert('This email already taken by another account');
-      } else {
-        array.push(newData[0]);
-        console.log(array);
-        let str = JSON.stringify(array);
-        AsyncStorage.setItem('mylikes', str);
-      }
-    } else {
-      null;
+  // const likedButton = () => {
+  //   const newData = PopularPlaces.filter(item => {
+  //     return item.status.indexOf('true') > -1;
+  //   });
+  //   console.log(newData);
+  //   if (array.some(el => el.PlacesTxt1 === text) === true) {
+  //     null;
+  //   } else {
+  //     array.push(newData[0]);
+  //     // console.log(array);
+  //     let str = JSON.stringify(array);
+  //     AsyncStorage.setItem('mylikes', str);
+  //   }
+  // };
+  const likedButton = () => {
+    // console.log('item', item);
+    const newData = PopularPlaces.filter(item => item.status == true).map(
+      ({PlacesImg, PlacesTxt1, PlacesTxt2}) => ({
+        PlacesImg,
+        PlacesTxt1,
+        PlacesTxt2,
+      }),
+    );
+    {
+      newData ? AsyncStorage.setItem('mylikes', JSON.stringify(newData)) : null;
     }
   };
+
   const _renderItem_PlacesToVisit = ({item, index}) => {
     return (
       <ToVistImg
@@ -207,6 +263,9 @@ export default function Homepage(props) {
           flex: 1,
         }}>
         <Topbar
+          location={I18n.t('chd')}
+          latest={I18n.t('latest')}
+          news={I18n.t('news')}
           MyMenu={() => props.navigation.navigate('Contact')}
           News={() => props.navigation.navigate('News')}
           Map={() => props.navigation.navigate('Map')}
@@ -216,7 +275,7 @@ export default function Homepage(props) {
           style={{
             paddingVertical: 10,
           }}>
-          <Text style={CSS.HomeText1}>Categories </Text>
+          <Text style={CSS.HomeText1}>{I18n.t('cat')} </Text>
           <FlatList
             horizontal={true}
             showsHorizontalScrollIndicator={false}
@@ -229,7 +288,7 @@ export default function Homepage(props) {
           {categories == 0 ? (
             <>
               <View>
-                <Text style={CSS.HomeText1}>Recomended for You : </Text>
+                <Text style={CSS.HomeText1}>{I18n.t('rec')} </Text>
                 <SliderBox
                   style={{
                     height: 200,
@@ -244,7 +303,7 @@ export default function Homepage(props) {
               </View>
 
               <View style={{borderRadius: 15}}>
-                <Text style={CSS.HomeText1}>Popular Places : </Text>
+                <Text style={CSS.HomeText1}>{I18n.t('popular')} </Text>
                 <FlatList
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
@@ -256,7 +315,7 @@ export default function Homepage(props) {
             </>
           ) : null}
 
-          <Text style={CSS.HomeText1}>Places : </Text>
+          <Text style={CSS.HomeText1}>{I18n.t('places')} </Text>
           <FlatList
             // inverted={-1}
             showsVerticalScrollIndicator={false}

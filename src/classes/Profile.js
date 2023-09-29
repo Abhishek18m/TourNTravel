@@ -8,6 +8,18 @@ import {FlatList} from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
+import I18n from 'react-native-i18n';
+import en from '../languages/en';
+import hi from '../languages/hi';
+import ja from '../languages/ja';
+
+I18n.fallback = true;
+I18n.translations = {
+  hi,
+  en,
+  ja,
+};
+
 export default function Profile(props) {
   useEffect(() => {
     getProfile();
@@ -40,19 +52,19 @@ export default function Profile(props) {
     setUserData(parsedata);
   };
   const ClickButton = val => {
-    if (val == 'Logout') {
+    if (val == I18n.t('logout')) {
       setShow(true);
-    } else if (val == 'Help & Support') {
+    } else if (val == I18n.t('help')) {
       refRBSheet1.current.open();
-    } else if (val == 'Privacy Policy') {
+    } else if (val == I18n.t('privacy')) {
       refRBSheet2.current.open();
-    } else if (val == 'Phone Number') {
+    } else if (val == I18n.t('phone')) {
       props.navigation.navigate('VerifyAccount');
-    } else if (val == 'Notifications') {
+    } else if (val == I18n.t('notifi')) {
       props.navigation.navigate('Notifications');
     } else if (val == 'Calender') {
       props.navigation.navigate('Practice');
-    } else if (val == 'Language') {
+    } else if (val == I18n.t('lang')) {
       props.navigation.navigate('Language');
     } else if (val == 'Chart') {
       props.navigation.navigate('Chart');
@@ -78,17 +90,17 @@ export default function Profile(props) {
     // },
     {
       id: 2,
-      title: 'Phone Number',
+      title: I18n.t('phone'),
       MenuIcon: require('../assets/phone.png'),
     },
     {
       id: 3,
-      title: 'Notifications',
+      title: I18n.t('notifi'),
       MenuIcon: require('../assets/notification.png'),
     },
     {
       id: 4,
-      title: 'Language',
+      title: I18n.t('lang'),
       MenuIcon: require('../assets/notification.png'),
     },
     // {
@@ -98,17 +110,17 @@ export default function Profile(props) {
     // },
     {
       id: 6,
-      title: 'Help & Support',
+      title: I18n.t('help'),
       MenuIcon: require('../assets/help.png'),
     },
     {
       id: 7,
-      title: 'Privacy Policy',
+      title: I18n.t('privacy'),
       MenuIcon: require('../assets/help.png'),
     },
     {
       id: 8,
-      title: 'Logout',
+      title: I18n.t('logout'),
       MenuIcon: require('../assets/logout.png'),
     },
   ];
@@ -131,7 +143,7 @@ export default function Profile(props) {
           backgroundColor: Design.primaryColor,
         }}>
         <Text style={{fontSize: 25, backgroundColor: Design.primaryColor}}>
-          My Profile
+          {I18n.t('profile')}
         </Text>
       </View>
 
@@ -156,8 +168,8 @@ export default function Profile(props) {
           {userData?.first_name} {userData?.last_name}
         </Text>
         <TouchableOpacity onPress={() => changePicture()}>
-          <Text style={{color: 'blue', alignSelf: 'center'}}>
-            Change profile picture
+          <Text style={{color: 'blue', alignSelf: 'center', marginBottom: 10}}>
+            {I18n.t('change')}
           </Text>
         </TouchableOpacity>
 
@@ -183,7 +195,7 @@ export default function Profile(props) {
                 justifyContent: 'space-evenly',
               }}>
               <Text style={{fontSize: 20, alignSelf: 'center'}}>
-                Are you sure you want to logout?
+                {I18n.t('sure')}
               </Text>
               <View
                 style={{
@@ -192,7 +204,7 @@ export default function Profile(props) {
                 }}>
                 <TouchableOpacity onPress={() => setShow(false)}>
                   <View>
-                    <Text style={{fontSize: 20}}>No</Text>
+                    <Text style={{fontSize: 20}}>{I18n.t('no')}</Text>
                   </View>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -202,7 +214,7 @@ export default function Profile(props) {
                       props.navigation.navigate('Login');
                   }}>
                   <View>
-                    <Text style={{fontSize: 20}}>Yes</Text>
+                    <Text style={{fontSize: 20}}>{I18n.t('yes')}</Text>
                   </View>
                 </TouchableOpacity>
               </View>

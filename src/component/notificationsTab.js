@@ -26,7 +26,7 @@ export default function NotificationList(props) {
       <View style={{flex: 1}}>
         <Text>{props.date}</Text>
 
-        <Text>You got a notification</Text>
+        <Text>{props.message}</Text>
       </View>
       <Text style={{alignSelf: 'flex-end', margin: 5}}>15 min</Text>
     </View>

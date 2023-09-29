@@ -9,19 +9,24 @@ export default function Topbar(props) {
       style={{
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        // justifyContent: 'space-between',
         backgroundColor: Design.primaryColor,
-        paddingHorizontal:10,
+        paddingHorizontal: 10,
         paddingVertical: 5,
       }}>
-      <TouchableOpacity onPress={()=>props.Map()} style={{flexDirection: 'row', alignItems: 'center'}}>
+      <TouchableOpacity
+        onPress={() => props.Map()}
+        style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
         <Image source={require('../assets/location.png')} style={CSS.Icon} />
         <Text style={{fontSize: 25, marginHorizontal: 10}}>
-          Chandigarh, India
+          {props.location}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => props.News()}>
-        <Text style={{color:'yellow', fontSize:16,fontWeight:'700'}}>Latest {`\n`}News</Text>
+        <Text style={{color: 'yellow', fontSize: 16, fontWeight: '700'}}>
+          {props.latest} {`\n`}
+          {props.news}
+        </Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => props.MyMenu()}>

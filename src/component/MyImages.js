@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Image, Dimensions, TouchableOpacity} from 'react-native';
 
 export default function PopularImages(props) {
-  const {likedButton}=props
+  const {likedButton} = props;
   return (
     <View
       style={{
@@ -19,7 +19,7 @@ export default function PopularImages(props) {
         shadowOpacity: 0.1,
         paddingHorizontal: 5,
       }}>
-      <View style={{flexDirection: 'row',alignItems:'center' }}>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <TouchableOpacity
           onPress={() => props.navigation.navigate('Chandigarh')}>
           <Image
@@ -37,7 +37,12 @@ export default function PopularImages(props) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => props.navigation.navigate('Chandigarh')}>
-          <Text style={{fontWeight: 'bold', width: Dimensions.get('screen').width*0.27, fontSize: 16}}>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              width: Dimensions.get('screen').width * 0.27,
+              fontSize: 16,
+            }}>
             {props.PlacesTxt1}
           </Text>
           <Text style={{fontSize: 13, fontWeight: '300'}}>
@@ -50,18 +55,21 @@ export default function PopularImages(props) {
         </TouchableOpacity>
       </View>
       <View>
-        <TouchableOpacity onPress={()=>likedButton(props.PlacesTxt1)} >
+        <TouchableOpacity
+          onPress={() => [
+            // likedButton(props.status),
+            props.button(props.index),
+          ]}>
           <Image
             style={{
               height: 25,
               width: 25,
-              tintColor: 'black',
+              // tintColor: 'black',
               marginTop: 10,
               marginRight: 10,
             }}
-            source={require('../assets/unlike.png')}
+            source={props.liked}
           />
-          
         </TouchableOpacity>
       </View>
     </View>

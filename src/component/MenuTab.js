@@ -12,7 +12,7 @@ export default function MenuTab(props) {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: Design.tertiaryColor,
-        marginTop: 6,
+        marginBottom: 6,
         borderRadius: 5,
         padding: 5,
       }}>

@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {
-  ImageBackground,
   SafeAreaView,
   Text,
   TouchableOpacity,
@@ -10,23 +9,35 @@ import {
 
 import NotificationList from '../component/notificationsTab';
 
+import I18n from 'react-native-i18n';
+import en from '../languages/en';
+import hi from '../languages/hi';
+import ja from '../languages/ja';
+
+I18n.fallback = true;
+I18n.translations = {
+  hi,
+  en,
+  ja,
+};
+
 export default function Notification(props) {
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  // const [selectedIndex, setSelectedIndex] = useState(-1);
   const Nlists = [
     {
-      date: 'August 2023',
+      date: I18n.t('date3'),
     },
     {
-      date: 'August 2023',
+      date: I18n.t('date3'),
     },
     {
-      date: 'August 2023',
+      date: I18n.t('date2'),
     },
     {
-      date: 'August 2023',
+      date: I18n.t('date2'),
     },
     {
-      date: 'August 2023',
+      date: I18n.t('date1'),
     },
   ];
 
@@ -44,10 +55,10 @@ export default function Notification(props) {
   //     number: 4,
   //   },
   // ];
-  const [id, setId] = useState(null);
-  const gg = () => {
-    console.log(id);
-  };
+  // const [id, setId] = useState(null);
+  // const gg = () => {
+  //   console.log(id);
+  // };
   return (
     <SafeAreaView style={{flex: 1}}>
       <View>
@@ -59,7 +70,7 @@ export default function Notification(props) {
             alignSelf: 'center',
             color: 'black',
           }}>
-          Notifications
+          {I18n.t('notifi')}
         </Text>
       </View>
       <FlatList
@@ -67,7 +78,9 @@ export default function Notification(props) {
         style={{marginTop: 20}}
         data={Nlists}
         renderItem={({item, index}) => {
-          return <NotificationList date={item.date} />;
+          return (
+            <NotificationList message={I18n.t('message')} date={item.date} />
+          );
         }}
       />
       {/* <FlatList
