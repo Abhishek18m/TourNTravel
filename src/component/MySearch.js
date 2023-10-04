@@ -7,7 +7,7 @@ export default function MySearch(props) {
     <View
       style={{
         // height: Dimensions.get('screen').height * 0.07,
-        marginHorizontal:10,
+        marginHorizontal: 10,
         borderRadius: 10,
         marginVertical: 5,
         backgroundColor: Design.tertiaryColor,
@@ -21,10 +21,10 @@ export default function MySearch(props) {
         paddingHorizontal: 5,
         alignSelf: 'center',
         justifyContent: 'space-between',
-        
       }}>
-      <View style={{flexDirection: 'row', alignItems: 'center',flex:1}}>
-        <TouchableOpacity onPress={()=>props.navigation.navigate('SukhnaLake')}>
+      <View style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('SukhnaLake')}>
           <Image
             source={props.PlacesImg}
             style={{
@@ -38,11 +38,14 @@ export default function MySearch(props) {
             }}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>props.navigation.navigate('SukhnaLake')}>
-          <Text style={{fontWeight: '600', fontSize:16}}>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('SukhnaLake')}>
+          <Text style={{fontWeight: '600', fontSize: 16, color: 'black'}}>
             {props.PlacesTxt1}
           </Text>
-          <Text style={{fontWeight:'300'}}>{props.PlacesTxt2}</Text>
+          <Text style={{fontWeight: '300', color: 'black'}}>
+            {props.PlacesTxt2}
+          </Text>
           {/* <Image
             style={{height: 15, width: 70}}
             source={require('../assets/5stars.png')}

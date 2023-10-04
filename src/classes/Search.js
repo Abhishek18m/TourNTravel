@@ -65,66 +65,6 @@ export default function Search(props) {
       setsearch(text);
     }
   };
-  // const RecentSearches = [
-  //   {
-  //     id: 1,
-  //     PlacesImg: require('../assets/mountains.jpg'),
-  //     PlacesTxt1: 'Mount Everest',
-  //     PlacesTxt2: 'China',
-  //   },
-  //   {
-  //     id: 2,
-  //     PlacesImg: require('../assets/SukhnaLake.png'),
-  //     PlacesTxt1: 'Sukhna Lake',
-  //     PlacesTxt2: 'Chandigarh, India',
-  //   },
-  //   {
-  //     id: 3,
-  //     PlacesImg: require('../assets/Tokyo.jpeg'),
-  //     PlacesTxt1: 'Tokyo',
-  //     PlacesTxt2: 'Tokyo, Japan',
-  //   },
-  // ];
-  // const PopularCities = [
-  //   {
-  //     id: 1,
-  //     PlacesImg: require('../assets/Paris.jpeg'),
-  //     PlacesTxt1: 'Eiffel Tower',
-  //     PlacesTxt2: 'Paris',
-  //   },
-  //   {
-  //     id: 2,
-  //     PlacesImg: require('../assets/NewYork.jpeg'),
-  //     PlacesTxt1: 'The Empire State Building',
-  //     PlacesTxt2: 'New York',
-  //   },
-  //   {
-  //     id: 3,
-  //     PlacesImg: require('../assets/tajmahal.jpg'),
-  //     PlacesTxt1: 'Taj Mahal',
-  //     PlacesTxt2: 'Agra, India',
-  //   },
-  // ];
-  // const PopularImg = [
-  //   {
-  //     id: 1,
-  //     PlacesImg: require('../assets/USA.jpeg'),
-  //     PlacesTxt1: 'Statue of Liberty',
-  //     PlacesTxt2: 'New York,USA',
-  //   },
-  //   {
-  //     id: 2,
-  //     PlacesImg: require('../assets/Tokyo.jpeg'),
-  //     PlacesTxt1: 'Tokyo',
-  //     PlacesTxt2: 'Tokyo, Japan',
-  //   },
-  //   {
-  //     id: 3,
-  //     PlacesImg: require('../assets/Spain.jpeg'),
-  //     PlacesTxt1: 'La Sagrada Familia',
-  //     PlacesTxt2: 'Spain',
-  //   },
-  // ];
 
   const RecentSearches = [
     {
@@ -212,6 +152,7 @@ export default function Search(props) {
         <View style={CSS.SearchButton}>
           <TextInput
             placeholder={I18n.t('chd')}
+            placeholderTextColor={'grey'}
             style={CSS.InputText}
             onChangeText={text => searchFilter(text)}
             value={search}

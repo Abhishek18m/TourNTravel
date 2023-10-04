@@ -18,7 +18,7 @@ export default function Topbar(props) {
         onPress={() => props.Map()}
         style={{flexDirection: 'row', alignItems: 'center', flex: 1}}>
         <Image source={require('../assets/location.png')} style={CSS.Icon} />
-        <Text style={{fontSize: 25, marginHorizontal: 10}}>
+        <Text style={{fontSize: 25, marginHorizontal: 10, color: 'black'}}>
           {props.location}
         </Text>
       </TouchableOpacity>

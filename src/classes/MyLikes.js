@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView, Text, View, ScrollView, FlatList} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import Design from '../StyleSheet/Design';
 import CSS from '../StyleSheet/CSS';
 import LikedImg from '../component/LikedImg';
-import AsyncStorage from '@react-native-community/async-storage';
 
 import I18n from 'react-native-i18n';
 import en from '../languages/en';
@@ -18,28 +18,57 @@ I18n.translations = {
   ja,
 };
 
-let array = [];
 export default function MyLikes(props) {
   const [myLikes, setMyLikes] = useState([]);
+
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
-    let users = await AsyncStorage.getItem('mylikes');
-    let parsedata = JSON.parse(users);
-    array = [...parsedata];
-    // setMyLikes(array)
-    setMyLikes(array);
+    let likeData = await AsyncStorage.getItem('mylikes');
+    let newData = JSON.parse(likeData);
+    // array = [...newData];
+    setMyLikes(newData);
+  };
+  // const Delete = i => {
+  //   let arr = [...myLikes];
+  //   let data = arr[i];
+  //   console.log(data);
+
+  //   arr.splice(i, 1);
+  //   setMyLikes(arr);
+  //   AsyncStorage.setItem('mylikes', JSON.stringify(arr));
+  // };
+
+  const Delete = async (i, n) => {
+    let arr = [...myLikes];
+    arr.splice(i, 1);
+    AsyncStorage.setItem('mylikes', JSON.stringify(arr));
+    setMyLikes(arr);
+
+    let data = await AsyncStorage.getItem('likeStatus');
+    let newData = JSON.parse(data);
+    console.log(newData);
+
+    function findMovies(item) {
+      return item.PlacesTxt1 === n;
+    }
+    let index = newData.findIndex(findMovies);
+    console.log(index);
+    newData[index].status = false;
+    AsyncStorage.setItem('likeStatus', JSON.stringify(newData));
   };
 
   const _renderItem_Liked = ({item, index}) => {
     return (
       <LikedImg
+        index={index}
         LikedImg={item.PlacesImg}
         LikedTxt1={item.PlacesTxt1}
         LikedTxt2={item.PlacesTxt2}
         navigation={props.navigation}
+        Delete={(i, n) => Delete(i, n)}
       />
     );
   };

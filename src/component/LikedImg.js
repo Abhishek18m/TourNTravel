@@ -36,16 +36,17 @@ export default function LikedImg(props) {
       <View style={{flexDirection: 'row'}}>
         <TouchableOpacity
           onPress={() => props.navigation.navigate('SukhnaLake')}>
-          <Text style={{fontWeight: 'bold',fontSize:15, width: 120}}>
+          <Text style={{fontWeight: 'bold', fontSize: 15, width: 120}}>
             {props.LikedTxt1}
           </Text>
-          <Text style={{fontSize:13}}>{props.LikedTxt2}</Text>
+          <Text style={{fontSize: 13}}>{props.LikedTxt2}</Text>
           {/* <Image
             style={{height: 15, width: 70}}
             source={require('../assets/5stars.png')}
           /> */}
         </TouchableOpacity>
-        <TouchableOpacity >
+        <TouchableOpacity
+          onPress={() => props.Delete(props.index, props.LikedTxt1)}>
           <Image
             style={{
               height: 25,

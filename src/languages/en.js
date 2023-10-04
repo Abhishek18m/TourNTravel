@@ -75,4 +75,6 @@ export default {
   sure: 'Are you sure you want to logout?',
   yes: 'Yes',
   no: 'No',
+  garden: 'Garden',
+  temple: 'Temple',
 };

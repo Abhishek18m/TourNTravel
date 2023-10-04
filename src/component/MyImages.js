@@ -42,10 +42,11 @@ export default function PopularImages(props) {
               fontWeight: 'bold',
               width: Dimensions.get('screen').width * 0.27,
               fontSize: 16,
+              color: 'black',
             }}>
             {props.PlacesTxt1}
           </Text>
-          <Text style={{fontSize: 13, fontWeight: '300'}}>
+          <Text style={{fontSize: 13, fontWeight: '300', color: 'black'}}>
             {props.PlacesTxt2}
           </Text>
           {/* <Image
@@ -57,7 +58,7 @@ export default function PopularImages(props) {
       <View>
         <TouchableOpacity
           onPress={() => [
-            // likedButton(props.status),
+            // likedButton(),
             props.button(props.index),
           ]}>
           <Image

@@ -8,7 +8,7 @@ export default function BottomTab(props) {
     <View
       style={{
         flex: 1,
-        paddingVertical: 15,
+        paddingVertical: 5,
         justifyContent: 'space-evenly',
         backgroundColor: 'white',
       }}>
@@ -16,7 +16,7 @@ export default function BottomTab(props) {
         <View
           style={{
             backgroundColor:
-            props.index == props.displayIndex ? Design.primaryColor : 'white',
+              props.index == props.displayIndex ? Design.primaryColor : 'white',
             marginHorizontal: 10,
             marginVertical: 5,
             paddingVertical: 5,
@@ -24,8 +24,8 @@ export default function BottomTab(props) {
           }}>
           <Image
             style={{
-              height: 30,
-              width: 30,
+              height: 25,
+              width: 25,
               tintColor: props.index == props.displayIndex ? 'white' : 'black',
               alignSelf: 'center',
             }}
@@ -35,7 +35,7 @@ export default function BottomTab(props) {
           <Text
             style={{
               color: props.index == props.displayIndex ? 'white' : 'black',
-              fontSize: 18,
+              fontSize: 12,
               alignSelf: 'center',
             }}>
             {props.title}

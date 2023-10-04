@@ -81,6 +81,7 @@ export default function Login(props) {
         // console.warn(str);
         // console.log(res);
         AsyncStorage.setItem('user_login', str);
+
         AsyncStorage.setItem('status', 'true');
 
         props.navigation.navigate('Main');

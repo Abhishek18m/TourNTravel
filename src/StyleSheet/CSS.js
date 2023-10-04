@@ -121,13 +121,13 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: Design.tertiaryColor,
+    height: '8%',
 
     borderWidth: 0.5,
     borderRadius: 5,
-    marginHorizontal: 10,
-    marginVertical: 10,
+    margin: 10,
 
-    paddingVertical: 5,
+    // paddingVertical: 5,
     paddingHorizontal: 15,
   },
   CommonButton: {
@@ -166,6 +166,7 @@ export default StyleSheet.create({
     marginHorizontal: 10,
     fontWeight: '500',
     marginVertical: 10,
+    color: 'black',
   },
   CategoriesView: {
     alignItems: 'center',
@@ -199,7 +200,7 @@ export default StyleSheet.create({
     marginVertical: 5,
   },
   InputText: {
-    fontSize: 25,
+    fontSize: 20,
   },
   Tile: {
     justifyContent: 'center',

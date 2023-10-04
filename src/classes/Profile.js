@@ -26,22 +26,6 @@ export default function Profile(props) {
   }, []);
 
   // const [profileImage, setProfileImage] = useState('');
-  const [myPic, setMyPic] = useState(null);
-
-  const getProfile = async () => {
-    let pfp = await AsyncStorage.getItem('pp');
-
-    setMyPic(pfp);
-  };
-
-  const changePicture = async () => {
-    const options = {mediaType: 'photo'};
-    const result = await launchImageLibrary(options);
-    // console.log('1', result.assets[0].uri);
-    await AsyncStorage.setItem('pp', result.assets[0].uri);
-    getProfile();
-    // setProfileImage(result.assets[0].uri);
-  };
 
   useEffect(() => {
     getData();
@@ -74,11 +58,12 @@ export default function Profile(props) {
   };
 
   const removeData = async () => {
-    await AsyncStorage.removeItem('user_login');
+    // await AsyncStorage.removeItem('user_login');
     await AsyncStorage.removeItem('status');
     setUserData('');
   };
   const [userData, setUserData] = useState({});
+
   const [show, setShow] = useState(false);
   const refRBSheet1 = useRef();
   const refRBSheet2 = useRef();
@@ -124,6 +109,21 @@ export default function Profile(props) {
       MenuIcon: require('../assets/logout.png'),
     },
   ];
+  const [myPic, setMyPic] = useState(null);
+
+  const getProfile = async () => {
+    let pfp = await AsyncStorage.getItem('pp');
+
+    setMyPic(pfp);
+  };
+  const changePicture = async () => {
+    const options = {mediaType: 'photo'};
+    const result = await launchImageLibrary(options);
+    // console.log('1', result.assets[0].uri);
+    await AsyncStorage.setItem('pp', result.assets[0].uri);
+    getProfile();
+    // setProfileImage(result.assets[0].uri);
+  };
   const _renderItem_ProfileMenu = ({item, index}) => {
     return (
       <MenuTab
@@ -133,6 +133,7 @@ export default function Profile(props) {
       />
     );
   };
+  // console.log(userData.email);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Design.primaryColor}}>
       <View
@@ -162,7 +163,7 @@ export default function Profile(props) {
             alignSelf: 'center',
             margin: 20,
           }}
-          source={{uri: myPic}}
+          source={!myPic ? require('../assets/user.png') : {uri: myPic}}
         />
         <Text style={{alignSelf: 'center', fontSize: 22}}>
           {userData?.first_name} {userData?.last_name}

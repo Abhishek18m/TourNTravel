@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+
 import {
   View,
   Text,
@@ -6,8 +7,6 @@ import {
   ScrollView,
   FlatList,
   Dimensions,
-  Alert,
-  BackHandler,
 } from 'react-native';
 
 import CSS from '../StyleSheet/CSS';
@@ -33,27 +32,27 @@ I18n.translations = {
 
 let array = [];
 export default function Homepage(props) {
-  function handleBackButtonClick() {
-    BackHandler.exitApp();
-    return true;
-  }
+  // function handleBackButtonClick() {
+  //   BackHandler.exitApp();
+  //   return true;
+  // }
 
   useEffect(() => {
     getData();
-    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
-    return () => {
-      BackHandler.removeEventListener(
-        'hardwareBackPress',
-        handleBackButtonClick,
-      );
-    };
+    // BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    // return () => {
+    //   BackHandler.removeEventListener(
+    //     'hardwareBackPress',
+    //     handleBackButtonClick,
+    //   );
+    // };
   }, []);
   const getData = async () => {
     let likeStatus = await AsyncStorage.getItem('likeStatus');
     let parsedata = JSON.parse(likeStatus);
-    setPopularPlaces(parsedata);
-    likedButton();
-    // console.log(likeStatus);
+    {
+      likeStatus ? setPopularPlaces(parsedata) : null;
+    }
   };
 
   const [categories, setCategories] = useState(0);
@@ -132,55 +131,73 @@ export default function Homepage(props) {
       PlacesImg: require('../assets/SukhnaLake.png'),
       PlacesTxt1: I18n.t('SuLake'),
       PlacesTxt2: I18n.t('chd'),
+      category: I18n.t('lake') + I18n.t('boating'),
     },
     {
       id: 2,
       PlacesImg: require('../assets/Elante.jpeg'),
       PlacesTxt1: I18n.t('elante'),
       PlacesTxt2: I18n.t('chd'),
+      category: I18n.t('shopping'),
     },
     {
       id: 3,
       PlacesImg: require('../assets/RockGarden.webp'),
       PlacesTxt1: I18n.t('rock'),
       PlacesTxt2: I18n.t('chd'),
+      category: I18n.t('garden'),
     },
     {
       id: 4,
       PlacesImg: require('../assets/RoseGarden.webp'),
       PlacesTxt1: I18n.t('rose'),
       PlacesTxt2: I18n.t('chd'),
+      category: I18n.t('garden'),
     },
     {
       id: 5,
       PlacesImg: require('../assets/mansadevi.jpg'),
       PlacesTxt1: I18n.t('mansa'),
       PlacesTxt2: I18n.t('chd'),
+      category: I18n.t('temple'),
     },
     {
       id: 6,
       PlacesImg: require('../assets/museum.jpg'),
       PlacesTxt1: I18n.t('museum'),
       PlacesTxt2: I18n.t('chd'),
+      category: I18n.t('museum'),
     },
   ];
   let arr = [...PopularPlaces];
+
   const newArray = i => {
     if (arr[i].status == true) {
       arr[i].status = false;
-      // setPopularPlaces(arr);
       AsyncStorage.setItem('likeStatus', JSON.stringify(arr));
-      getData();
+      setPopularPlaces(arr);
     } else {
       arr[i].status = true;
-      // setPopularPlaces(arr);
       AsyncStorage.setItem('likeStatus', JSON.stringify(arr));
-      getData();
+      setPopularPlaces(arr);
+    }
+    const newData = PopularPlaces.filter(item => item.status == true).map(
+      ({PlacesImg, PlacesTxt1, PlacesTxt2, status}) => ({
+        PlacesImg,
+        PlacesTxt1,
+        PlacesTxt2,
+        status,
+      }),
+    );
+    {
+      newData ? AsyncStorage.setItem('mylikes', JSON.stringify(newData)) : null;
     }
   };
+  // const likedButton = () => {};
   const _renderItem_Category = ({item, index}) => {
     return (
       <Categories
+        filter={t => filterList(t)}
         Img={item.Img}
         Title={item.Title}
         index={index}
@@ -201,7 +218,7 @@ export default function Homepage(props) {
         PlacesTxt2={item.PlacesTxt2}
         navigation={props.navigation}
         button={index => newArray(index)}
-        // likedButton={text => likedButton(text)}
+        // likedButton={() => likedButton()}
         liked={
           item.status == true
             ? require('../assets/heart.png')
@@ -209,33 +226,6 @@ export default function Homepage(props) {
         }
       />
     );
-  };
-  // const likedButton = () => {
-  //   const newData = PopularPlaces.filter(item => {
-  //     return item.status.indexOf('true') > -1;
-  //   });
-  //   console.log(newData);
-  //   if (array.some(el => el.PlacesTxt1 === text) === true) {
-  //     null;
-  //   } else {
-  //     array.push(newData[0]);
-  //     // console.log(array);
-  //     let str = JSON.stringify(array);
-  //     AsyncStorage.setItem('mylikes', str);
-  //   }
-  // };
-  const likedButton = () => {
-    // console.log('item', item);
-    const newData = PopularPlaces.filter(item => item.status == true).map(
-      ({PlacesImg, PlacesTxt1, PlacesTxt2}) => ({
-        PlacesImg,
-        PlacesTxt1,
-        PlacesTxt2,
-      }),
-    );
-    {
-      newData ? AsyncStorage.setItem('mylikes', JSON.stringify(newData)) : null;
-    }
   };
 
   const _renderItem_PlacesToVisit = ({item, index}) => {
@@ -248,12 +238,19 @@ export default function Homepage(props) {
       />
     );
   };
-  // const getData = async () => {
-  //   let users = await AsyncStorage.getItem('user_login');
-  //    let parsedata = JSON.parse(users);
-  //    setUserData(parsedata)
-  //   console.log(parsedata)
-  // }
+  const [filterData, setFilterData] = useState(PlacesToVist);
+
+  const filterList = t => {
+    if (t == I18n.t('all')) {
+      setFilterData(PlacesToVist);
+    } else {
+      const newData = PlacesToVist.filter(item => {
+        return item.category.toUpperCase().indexOf(t.toUpperCase()) > -1;
+      });
+
+      setFilterData(newData);
+    }
+  };
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Design.primaryColor}}>
@@ -320,7 +317,7 @@ export default function Homepage(props) {
             // inverted={-1}
             showsVerticalScrollIndicator={false}
             keyExtractor={item => item.id}
-            data={PlacesToVist}
+            data={filterData}
             renderItem={_renderItem_PlacesToVisit}
           />
         </ScrollView>

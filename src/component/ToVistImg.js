@@ -2,7 +2,6 @@ import React from 'react';
 import {View, Text, Image, Dimensions, TouchableOpacity} from 'react-native';
 
 export default function ToVistImg(props) {
-
   return (
     <View
       style={{
@@ -21,7 +20,7 @@ export default function ToVistImg(props) {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <TouchableOpacity onPress={()=>props.navigation.navigate('SukhnaLake')}>
+      <TouchableOpacity onPress={() => props.navigation.navigate('SukhnaLake')}>
         <Image
           source={props.PlacesImg}
           style={{
@@ -32,11 +31,19 @@ export default function ToVistImg(props) {
           }}
         />
       </TouchableOpacity>
-      <TouchableOpacity onPress={()=>props.navigation.navigate('SukhnaLake')} >
-        <Text style={{fontWeight: 'bold', fontSize: 20,alignSelf:'center'}}>
+      <TouchableOpacity onPress={() => props.navigation.navigate('SukhnaLake')}>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            fontSize: 20,
+            alignSelf: 'center',
+            color: 'black',
+          }}>
           {props.PlacesTxt1}
         </Text>
-        <Text style={{paddingBottom: 10,alignSelf:'center'}}>{props.PlacesTxt2}</Text>
+        <Text style={{paddingBottom: 10, alignSelf: 'center', color: 'black'}}>
+          {props.PlacesTxt2}
+        </Text>
       </TouchableOpacity>
     </View>
   );
